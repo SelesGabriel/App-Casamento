@@ -1,6 +1,6 @@
 ﻿using Casamento.Data.Context;
 using Casamento.Model;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace Casamento.Data.Service
         public async Task<List<Pessoa>> GetPessoasAsync()
         {
             var result = context.Pessoas;
-            return await Task.FromResult(result.OrderBy(a => a.Nome).ToList());
+            return await Task.FromResult(result.OrderBy(a => a.Nome).AsNoTracking().ToList());
         }
 
         public async Task<Pessoa> GetPessoaAsync(int id)
