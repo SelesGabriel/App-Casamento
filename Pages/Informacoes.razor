@@ -1,0 +1,47 @@
+﻿@page "/informacoes"
+@using GoogleMapsComponents
+@using GoogleMapsComponents.Maps
+
+<h2 style="font-family:'Segoe Print', Tahoma, Geneva, Verdana, sans-serif;font-weight:bolder;">Onde vai ser o festão?</h2>
+<br />
+
+<label><b>Local da Cerimônia:</b> Paróquia São Lucas Evangelista</label>
+<br />
+<label><b>Horário:</b> 17:00</label>
+<br />
+<label><b>Endereço:</b> Av. Inocêncio Seráfico, 2450A - Vila Silva Ribeiro,  06380-021 - Carapicuíba.</label>
+<br />
+<label><b>Local da Recepção: </b>Espaço Karinas</label>
+<br />
+<label><b>Horário:</b> 18:40h</label>
+<br />
+<label><b>Endereço:</b> Estrada do Copiúva, 741 - Pq Jandaia, 06330000 -  Carapicuíba.</label>
+
+
+
+<div id="map" style="height:500px;width:100%;">
+    <GoogleMap @ref="@map1" Id="map1" Options="@mapOptions"></GoogleMap>
+</div>
+
+
+
+
+@code {
+    private GoogleMap map1;
+    private MapOptions mapOptions;
+
+    protected override void OnInitialized()
+    {
+        mapOptions = new MapOptions()
+        {
+            Zoom = 18,
+            Center = new LatLngLiteral()
+            {
+                Lat = -23.5499663,
+                Lng = -46.8230105
+            },
+            MapTypeId = MapTypeId.Roadmap
+        };
+    }
+}
+

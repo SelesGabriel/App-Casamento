@@ -1,0 +1,42 @@
+﻿@page "/configuracao"
+@inject NavigationManager navigation
+@inject PessoaService pessoaService
+
+@using Newtonsoft.Json
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><b>NOME</b></th>
+            <th><b>SOBRENOME</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Pessoa pessoa in pessoas)
+        {
+            <tr>
+                <th>@pessoa.Nome</th>
+                <th>@pessoa.Sobrenome</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Pessoa> pessoas = new List<Pessoa>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarregaEstudantes();
+    }
+
+    async Task CarregaEstudantes()
+    {
+        await GetEstudantesAsync();
+    }
+
+    async Task GetEstudantesAsync()
+    {
+        pessoas = await pessoaService.GetPessoasAsync();
+    }
+}

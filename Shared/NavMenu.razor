@@ -1,0 +1,100 @@
+﻿@*<div class="top-row pl-4 navbar navbar-dark">
+        <a class="navbar-brand" href="">Casamento</a>
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <ul class="nav flex-column">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="counter">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="fetchdata">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                </NavLink>
+            </li>
+        </ul>
+    </div>
+
+    @code {
+        private bool collapseNavMenu = true;
+
+        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+        private void ToggleNavMenu()
+        {
+            collapseNavMenu = !collapseNavMenu;
+        }
+    }*@
+
+<div class="imagemTop">
+    <h2 class="NomeNoivos">Andreia & Gabriel</h2>
+    <h3 class="letraMensagem">Save the date</h3>
+    <h3 class="letraData">25.09.2021 - Faltam @diasFaltantes dias</h3>
+</div>
+
+<div class="@topnav" id="myTopnav">
+    <a href="" @onclick="@Class">Inicio</a>
+    <a href="nossahistoria" @onclick="@AlterClass">Nossa história</a>
+    <a href="confirmapresenca" @onclick="@AlterClass">Confirme sua presença</a>
+    <a href="listapresente" @onclick="@AlterClass">Lista de presentes</a>
+    <a href="fotos" @onclick="@AlterClass">Fotos</a>
+    <a href="informacoes" @onclick="@AlterClass">Informações do Casamento</a>
+    <a href="configuracao" @onclick="@AlterClass">Lista de Confirmados</a>
+    @*<div class="dropdown">
+            <button class="dropbtn">
+                Dropdown
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div>
+        <a href="#about">About</a>*@
+    <a class="icon" @onclick="@AlterClass" style="color:white;">&#9776;</a>
+</div>
+
+@code{
+    private string topnav = "topnav";
+    private int diasFaltantes;
+    private DateTime dataFinal;
+
+
+
+    public void AlterClass()
+    {
+        if (topnav == "topnav")
+            topnav += " responsive";
+        else
+            topnav = "topnav";
+    }
+
+    public void Class()
+    {
+        topnav = "topnav";
+    }
+
+    protected override void OnInitialized()
+    {
+        CalculaDias();
+    }
+
+    void CalculaDias()
+    {
+        dataFinal = new DateTime(2021, 09, 25);
+        diasFaltantes = (int)dataFinal.Subtract(DateTime.Today).TotalDays;
+
+    }
+
+}

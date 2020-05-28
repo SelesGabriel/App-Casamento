@@ -1,0 +1,73 @@
+﻿@page "/confirmapresenca"
+@inject NavigationManager navigation
+@inject PessoaService pessoaService
+
+<h2 style="font-family:'Segoe Print', Tahoma, Geneva, Verdana, sans-serif;font-weight:bolder;">Bora pra festa?</h2>
+<br />
+<br />
+<h3 class="frase" style="text-align:center">
+    Nada é mais lindo do que ver uma história de amor se concretizar. É o que estamos fazendo juntos: amando, vivendo e construindo juntos um sonho. Ter você aqui é a certeza dessa realização, mas precisamos que confirme sua presença no nosso grande dia.
+</h3>
+<br />
+
+<EditForm Model="pessoa" OnValidSubmit="AdicionaConvidado">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label class="col-md-6">Nome: </label>
+        <InputText @bind-Value="pessoa.Nome" class="form-control col-md-6" />
+        <ValidationMessage For="(()=> pessoa.Nome)"/>
+    </div>
+    <div class="form-group">
+        <label class="col-md-6">Sobrenome:</label>
+        <InputText @bind-Value="pessoa.Sobrenome" class="form-control col-md-6" />
+        <ValidationMessage For="(()=> pessoa.Sobrenome)"/>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-success">Confirmar</button>
+</EditForm>
+
+
+@if (@ShowPopUp)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Sua presença foi confirmada!</h3>
+                    <!-- Button to close the popup -->
+                    <button type="button" class="close"
+                            @onclick="ClosePopup">
+                        X
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn btn-info" @onclick="ClosePopup">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code{
+    Pessoa pessoa = new Pessoa();
+    bool ShowPopUp = false;
+
+
+
+    protected override void OnInitialized()
+    {
+        ShowPopUp = false;
+    }
+
+    async Task AdicionaConvidado()
+    {
+        await pessoaService.PostPessoaAsync(pessoa);
+        ShowPopUp = true;
+    }
+
+    void ClosePopup()
+    {
+        ShowPopUp = false;
+        navigation.NavigateTo("");
+    }
+}
