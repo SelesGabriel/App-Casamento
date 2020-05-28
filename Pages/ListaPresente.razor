@@ -1,9 +1,27 @@
 ﻿@page "/listapresente"
-
+@inject NavigationManager nav
 <h2 style="font-family:'Segoe Print', Tahoma, Geneva, Verdana, sans-serif;font-weight:bolder;">Nosso presente é você!</h2>
+
 
 <br />
 <div class="frase" style="text-align:center">
     <h3> Queríamos ter tudo, mas tudo não podemos ter. Só conseguiremos comprar se você escolher.</h3>
     <h3> Escolha com carinho e nos dê este mérito. Não vai valer economizar no cartão de crédito.</h3>
 </div>
+<br />
+<h3 style="text-align:center">
+    Como estamos sempre pensando no melhor para os nossos convidados, deixamos nossa lista de presentes em uma das lojas mais fáceis de encontrar.
+    Nossa lista está no site das Casas Bahia, fique a vontade para nos presentearem como quiserem.
+</h3>
+<br />
+<div style="text-align:center">
+    <button class="btn" style="background-color:#f50f6e;color:white;" @onclick="Navegar"><b>Acessar lista de casamento</b></button>
+</div>
+<br />
+
+@code{
+    void Navegar()
+    {
+        nav.NavigateTo("https://casamento.casasbahia.com.br/#/lista-presentes/863313");
+    }
+}
